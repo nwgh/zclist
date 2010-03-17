@@ -1,0 +1,42 @@
+zclist.py
+Copyright (c) 2006, Nicholas W. Hurley
+See the file 'LICENSE' for license terms
+
+This module implements a list that does zero copying when returning
+slices. This means that any changes you make to elements within that
+slice will make changes to the original list, as well. Currently, the
+slices created by a zero-copy list have some limitations: their size
+cannot be altered (no .append(), .extend(), etc), the iter() function
+does not work, comparison operators (<, >, <=, >=, ==, !=) don't work,
+and reversing and sorting are not supported. Otherwise, everything you
+can do with a list, you can do with a slice from a zero-copy
+list. Taking a slice of a slice from a zero-copy list will result in yet
+another zero-copy slice.
+
+To install, just run:
+
+  python setup.py install
+
+as root. Once you've got it installed, to turn an existing list l into
+a zero-copy list, you can just do:
+
+  import zclist
+  l = zclist.ZeroCopyList(l)
+
+and then have fun. In order to create an empty zero-copy list, just do:
+
+  import zclist
+  l = zclist.ZeroCopyList()
+
+If you want to make a copy of a list l that is a zero-copy list, do:
+
+  import zclist
+  m = zclist.ZeroCopyList(l)
+
+To get the slice l[x:y] from a regular list WITHOUT copying and WITHOUT
+turning l into a zero-copy list, do:
+
+  import zclist
+  s = zclist.ZeroCopySlice(l, x, y)
+
+See help(zclist) for more info.
